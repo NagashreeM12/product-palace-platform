@@ -2,10 +2,11 @@
 import { useNavigate } from "react-router-dom";
 import { Product } from "@/contexts/ProductsContext";
 import { Button } from "@/components/ui/button";
-import { ShoppingCart, Star } from "lucide-react";
+import { ShoppingCart, Star, ImageOff } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import { useState } from "react";
 
 interface ProductCardProps {
   product: Product;
@@ -15,6 +16,7 @@ interface ProductCardProps {
 const ProductCard = ({ product, className }: ProductCardProps) => {
   const { addToCart } = useCart();
   const navigate = useNavigate();
+  const [imageError, setImageError] = useState(false);
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.stopPropagation(); // Prevent navigation when clicking the button
@@ -25,17 +27,28 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
     navigate(`/product/${product.id}`);
   };
 
+  const handleImageError = () => {
+    setImageError(true);
+  };
+
   return (
     <Card 
       className={cn("h-full overflow-hidden transition-shadow hover:shadow-md cursor-pointer", className)}
       onClick={handleClick}
     >
       <div className="aspect-square overflow-hidden bg-gray-100">
-        <img
-          src={product.images[0] || "/placeholder.svg"}
-          alt={product.name}
-          className="h-full w-full object-cover transition-transform hover:scale-105"
-        />
+        {!imageError ? (
+          <img
+            src={product.images[0]}
+            alt={product.name}
+            className="h-full w-full object-cover transition-transform hover:scale-105"
+            onError={handleImageError}
+          />
+        ) : (
+          <div className="h-full w-full flex items-center justify-center text-gray-400">
+            <ImageOff className="h-12 w-12" />
+          </div>
+        )}
       </div>
       <CardContent className="p-4">
         <div className="flex justify-between items-start mb-2">

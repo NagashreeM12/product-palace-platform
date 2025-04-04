@@ -57,14 +57,14 @@ type ProductsContextType = {
   loading: boolean;
 };
 
-// Mock products
+// Mock products with real image URLs
 const mockProducts: Product[] = [
   {
     id: "1",
     name: "Wireless Bluetooth Headphones",
     description: "High-quality wireless headphones with noise cancellation technology. Perfect for music lovers and professionals working from home.",
     price: 129.99,
-    images: ["/placeholder.svg"],
+    images: ["https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&auto=format&fit=crop&q=60"],
     category: "Electronics",
     vendorId: "1",
     vendorName: "Tech Solutions Inc",
@@ -77,7 +77,7 @@ const mockProducts: Product[] = [
     name: "Organic Cotton T-Shirt",
     description: "Comfortable and eco-friendly t-shirt made from 100% organic cotton. Available in multiple colors and sizes.",
     price: 24.99,
-    images: ["/placeholder.svg"],
+    images: ["https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&auto=format&fit=crop&q=60"],
     category: "Clothing",
     vendorId: "3",
     vendorName: "Green Apparel Co",
@@ -90,7 +90,7 @@ const mockProducts: Product[] = [
     name: "Smart Fitness Watch",
     description: "Track your health and fitness goals with this advanced smartwatch. Features heart rate monitoring, sleep tracking, and exercise detection.",
     price: 199.99,
-    images: ["/placeholder.svg"],
+    images: ["https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&auto=format&fit=crop&q=60"],
     category: "Electronics",
     vendorId: "1",
     vendorName: "Tech Solutions Inc",
@@ -103,7 +103,7 @@ const mockProducts: Product[] = [
     name: "Artisanal Ceramic Coffee Mug",
     description: "Handcrafted ceramic mug made by local artisans. Each piece is unique and perfect for your morning coffee or tea.",
     price: 19.99,
-    images: ["/placeholder.svg"],
+    images: ["https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=500&auto=format&fit=crop&q=60"],
     category: "Home & Kitchen",
     vendorId: "4",
     vendorName: "Artisan Crafts",
@@ -116,7 +116,7 @@ const mockProducts: Product[] = [
     name: "Professional Chef's Knife",
     description: "High-carbon stainless steel chef's knife with ergonomic handle. Essential tool for professional chefs and home cooking enthusiasts.",
     price: 89.99,
-    images: ["/placeholder.svg"],
+    images: ["https://images.unsplash.com/photo-1593618998160-e34014e67546?w=500&auto=format&fit=crop&q=60"],
     category: "Home & Kitchen",
     vendorId: "5",
     vendorName: "Culinary Essentials",
@@ -129,7 +129,7 @@ const mockProducts: Product[] = [
     name: "Vintage Leather Backpack",
     description: "Stylish and durable leather backpack with multiple compartments. Perfect for work, school, or travel.",
     price: 79.99,
-    images: ["/placeholder.svg"],
+    images: ["https://images.unsplash.com/photo-1622560480654-d96214fdc887?w=500&auto=format&fit=crop&q=60"],
     category: "Accessories",
     vendorId: "6",
     vendorName: "Urban Outfitters",

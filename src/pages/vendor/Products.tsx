@@ -20,13 +20,14 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
-import { MoreVertical, Search, Plus } from "lucide-react";
+import { MoreVertical, Search, Plus, ImageOff } from "lucide-react";
 
 const VendorProducts = () => {
   const { isAuthenticated, user, isVendor } = useAuth();
   const { getProductsByVendor, deleteProduct } = useProducts();
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
+  const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
   
   // Redirect if not authenticated or not a vendor
   useEffect(() => {
@@ -61,6 +62,10 @@ const VendorProducts = () => {
     if (stock <= 0) return { label: "Out of Stock", variant: "destructive" as const };
     if (stock < 10) return { label: "Low Stock", variant: "outline" as const };
     return { label: "In Stock", variant: "default" as const };
+  };
+
+  const handleImageError = (productId: string) => {
+    setImageErrors(prev => ({ ...prev, [productId]: true }));
   };
 
   return (
@@ -106,17 +111,25 @@ const VendorProducts = () => {
             <TableBody>
               {filteredProducts.map((product) => {
                 const stockStatus = getStockStatus(product.stock);
+                const hasImageError = imageErrors[product.id];
                 
                 return (
                   <TableRow key={product.id}>
                     <TableCell className="font-medium">
                       <div className="flex items-center">
                         <div className="h-10 w-10 rounded bg-gray-100 mr-3 flex-shrink-0">
-                          <img 
-                            src={product.images[0] || "/placeholder.svg"} 
-                            alt={product.name}
-                            className="h-full w-full object-cover rounded"
-                          />
+                          {!hasImageError ? (
+                            <img 
+                              src={product.images[0]} 
+                              alt={product.name}
+                              className="h-full w-full object-cover rounded"
+                              onError={() => handleImageError(product.id)}
+                            />
+                          ) : (
+                            <div className="h-full w-full flex items-center justify-center">
+                              <ImageOff className="h-4 w-4 text-gray-400" />
+                            </div>
+                          )}
                         </div>
                         <span className="truncate">{product.name}</span>
                       </div>

@@ -5,7 +5,7 @@ import { useProducts } from "@/contexts/ProductsContext";
 import { useCart } from "@/contexts/CartContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Minus, Plus, ShoppingCart, Star, Store } from "lucide-react";
+import { Minus, Plus, ShoppingCart, Star, Store, ImageOff } from "lucide-react";
 import { toast } from "sonner";
 import { Separator } from "@/components/ui/separator";
 
@@ -15,6 +15,7 @@ const ProductDetail = () => {
   const { addToCart } = useCart();
   const navigate = useNavigate();
   const [quantity, setQuantity] = useState(1);
+  const [imageError, setImageError] = useState(false);
   
   const product = getProductById(id || "");
   
@@ -53,16 +54,27 @@ const ProductDetail = () => {
     addToCart(product, quantity);
   };
 
+  const handleImageError = () => {
+    setImageError(true);
+  };
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Product Image */}
         <div className="bg-gray-100 rounded-lg overflow-hidden">
-          <img 
-            src={product.images[0] || "/placeholder.svg"} 
-            alt={product.name}
-            className="w-full h-auto object-contain max-h-[500px]"
-          />
+          {!imageError ? (
+            <img 
+              src={product.images[0]} 
+              alt={product.name}
+              className="w-full h-auto object-contain max-h-[500px]"
+              onError={handleImageError}
+            />
+          ) : (
+            <div className="h-[500px] w-full flex items-center justify-center text-gray-400">
+              <ImageOff className="h-24 w-24" />
+            </div>
+          )}
         </div>
         
         {/* Product Details */}
